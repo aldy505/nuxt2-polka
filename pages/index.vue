@@ -15,8 +15,8 @@ export default {
   },
   async mounted() {
     try {
-      const normal = await (await fetch('/api/', { method: 'GET' })).json();
-      this.normal = normal.msg;
+      const normal = await (await fetch('/api/', { method: 'POST', body: JSON.stringify({ hello: 'world' }) })).json();
+      this.normal = normal;
       const notnormal = await (await fetch('/api/error', { method: 'GET' })).json();
       this.err = notnormal.msg;
     } catch (error) {

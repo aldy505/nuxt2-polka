@@ -1,6 +1,7 @@
 import polka from 'polka';
 import helmet from 'helmet';
 import { errorHandler } from './errorHandler';
+import { json } from './json';
 
 const app = polka({
   onError: errorHandler,
@@ -8,8 +9,8 @@ const app = polka({
 
 app.use(helmet());
 
-app.get('/', (req, res) => {
-  const data = JSON.stringify({ msg: 'What\'s up, world?' })
+app.post('/', json, (req, res) => {
+  const data = JSON.stringify(req.body)
   res.writeHead(200, { 'Content-Type': 'application/json', 'Content-Length': data.length }).end(data);
 })
 
